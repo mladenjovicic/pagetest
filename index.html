@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test WebView</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        function prikaziUredjajNaMapi(lat, lng) {
+            const url = `https://maps.google.com/?q=${lat},${lng}`;
+            if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.prikaziNaMapi) {
+                window.webkit.messageHandlers.prikaziNaMapi.postMessage(url);
+            } else {
+                alert("Handler nije dostupan.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h3>Test Dugme</h3>
+    <button onclick="prikaziUredjajNaMapi(44.8168283, 15.8972216)">Prikaži na mapi</button>
+</body>
+</html>
