@@ -1,22 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sr">
 <head>
     <meta charset="UTF-8">
-    <title>Test WebView</title>
+    <title>Test dugmadi</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            padding: 20px;
+        }
+
+        button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 12px;
+            font-size: 18px;
+            background-color: #f0ad4e;
+            color: white;
+            border: none;
+            border-radius: 8px;
+        }
+
+        button:hover {
+            background-color: #ec971f;
+        }
+    </style>
     <script>
+        function clearCacheMemory() {
+            if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.performClick) {
+                window.webkit.messageHandlers.performClick.postMessage(null);
+            } else {
+                alert("Handler 'performClick' nije dostupan.");
+            }
+        }
+
+        function pozoviTelefon() {
+            const broj = "123456789";
+            if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.pozoviTelefon) {
+                window.webkit.messageHandlers.pozoviTelefon.postMessage(broj);
+            } else {
+                alert("Handler 'pozoviTelefon' nije dostupan.");
+            }
+        }
+
         function prikaziUredjajNaMapi(lat, lng) {
             const url = `https://maps.google.com/?q=${lat},${lng}`;
             if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers.prikaziNaMapi) {
                 window.webkit.messageHandlers.prikaziNaMapi.postMessage(url);
             } else {
-                alert("Handler nije dostupan.");
+                alert("Handler 'prikaziNaMapi' nije dostupan.");
             }
         }
     </script>
 </head>
 <body>
-    <h3>Test Dugme</h3>
-    <button onclick="prikaziUredjajNaMapi(44.8168283, 15.8972216)">Prikaži na mapi</button>
+
+    <button onclick="clearCacheMemory()">Обриши кеш меморију</button>
+
+    <button onclick="pozoviTelefon()">Позови телефон</button>
+
+    <button onclick="prikaziUredjajNaMapi(44.8168283, 15.8972216)">Прикажи на Google мапи</button>
+
 </body>
 </html>
+
